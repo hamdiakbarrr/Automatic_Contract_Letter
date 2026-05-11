@@ -6,6 +6,7 @@ from docx2pdf import convert
 from PyPDF2 import PdfMerger
 import tempfile
 import shutil
+import subprocess
 
 from docx.shared import Pt # Tambahkan import ini di bagian atas script
 
@@ -132,7 +133,7 @@ if st.button("Generate Satu File PDF"):
                 status_text.text(f"Memproses ({index+1}/{len(df)}): {row['nama_p2']}")
                 
                 # Menjalankan konversi (Membutuhkan MS Word di Windows)
-                convert(docx_path, pdf_path)
+                subprocess.run(['lowriter', '--headless', '--convert-to', 'pdf', '--outdir', pdf_folder, docx_path])
                 
                 # Masukkan ke dalam daftar penggabungan
                 merger.append(pdf_path)
